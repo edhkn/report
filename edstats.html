@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ETD Statistical Analysis Engine (edstats.html)</title>
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -35,6 +35,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
   <style>
+    :root {
+      --bg-base: #050914;
+      --accent: #D4AF37;
+      --accent-glow: rgba(212, 175, 55, 0.5);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 9999px; }
@@ -47,12 +56,244 @@
     .ready-pulse {
       animation: pulseBorder 1.8s infinite;
     }
+
+    /* Ruang selamat supaya kandungan utama tidak terlindung oleh header/footer terapung */
+    main.edstats-main {
+      padding-top: 105px;
+      padding-bottom: 115px;
+    }
+
+    /* --- FLOATING HEADER --- */
+    nav.floating-nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1050px;
+      background: rgba(10, 15, 30, 0.72);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 10px 20px 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      animation: slideDown 0.8s ease-out forwards;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .dept-logo {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 50%;
+      background: var(--text-main);
+      padding: 2px;
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      line-height: 1.15;
+    }
+
+    .logo-text span {
+      display: block;
+      font-size: 0.68rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--accent);
+      padding: 8px 16px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-home-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .nav-home-btn:hover {
+      background: var(--accent);
+      color: var(--bg-base);
+      box-shadow: 0 0 16px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    /* --- FLOATING FOOTER --- */
+    footer.floating-footer {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1050px;
+      background: rgba(10, 15, 30, 0.72);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 10px 24px;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      z-index: 100;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: slideUpFooter 0.8s ease-out forwards;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logos img {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+      transition: transform 0.3s;
+    }
+
+    .footer-logos img:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-divider {
+      width: 1px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      font-weight: 500;
+      font-size: 0.78rem;
+      background: rgba(212, 175, 55, 0.06);
+      padding: 5px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    .footer-copyright {
+      margin: 0;
+      letter-spacing: 0.4px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .footer-copyright span {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* --- ANIMASI & RESPONSIF --- */
+    @keyframes slideDown {
+      from { top: -100px; opacity: 0; }
+      to { top: 18px; opacity: 1; }
+    }
+
+    @keyframes slideUpFooter {
+      from { bottom: -100px; opacity: 0; }
+      to { bottom: 18px; opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    @media (max-width: 768px) {
+      nav.floating-nav { width: 94%; padding: 9px 14px 9px 16px; border-radius: 40px; top: 12px; }
+      .logo-text { font-size: 0.92rem; }
+      .logo-text span { font-size: 0.62rem; }
+      .dept-logo { height: 32px; }
+      .nav-home-btn { padding: 7px 12px; }
+      .nav-home-btn span { display: none; }
+
+      main.edstats-main { padding-top: 90px; padding-bottom: 95px; }
+
+      footer.floating-footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
+      .footer-logos img { height: 24px; }
+      .footer-status { display: none; }
+      .footer-copyright { font-size: 0.74rem; }
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen pb-16 antialiased">
+<body class="bg-slate-50 text-slate-800 min-h-screen antialiased">
+
+  <!-- FLOATING HEADER -->
+  <nav class="floating-nav">
+    <a href="index.html" class="logo-group">
+      <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
+      <div class="logo-text">
+        Hospital Kuala Nerang
+        <span>Jabatan Kecemasan &amp; Trauma</span>
+      </div>
+    </a>
+
+    <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Laman Utama</span>
+    </a>
+  </nav>
 
   <!-- Drag & Drop Fullscreen Overlay -->
-  <div id="dragOverlay" class="hidden fixed inset-0 z-50 bg-blue-950/75 backdrop-blur-sm flex items-center justify-center p-6 pointer-events-none">
+  <div id="dragOverlay" class="hidden fixed inset-0 z-[200] bg-blue-950/75 backdrop-blur-sm flex items-center justify-center p-6 pointer-events-none">
     <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-2 border-dashed border-blue-500">
       <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -66,9 +307,11 @@
     </div>
   </div>
 
-  <!-- Sticky Top Navigation Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3.5">
+  <!-- Main Workspace Container -->
+  <main class="edstats-main max-w-7xl mx-auto px-4 sm:px-6 space-y-5">
+
+    <!-- Dashboard Title & Secondary Toolbar Card -->
+    <header class="bg-white border border-slate-200 rounded-2xl shadow-sm px-4 sm:px-6 py-4 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3.5">
       <div>
         <div class="flex items-center gap-2.5">
           <div class="p-2 bg-blue-600 text-white rounded-xl shadow-sm">
@@ -113,11 +356,7 @@
           Export PDF
         </button>
       </div>
-    </div>
-  </header>
-
-  <!-- Main Workspace Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-5 space-y-5">
+    </header>
 
     <!-- STEP 1 & STEP 2: UPLOAD EXCEL FORM + PUSH ANALYSIS BUTTON CONTROL BAR -->
     <section class="bg-white border-2 border-blue-200 rounded-2xl p-5 shadow-sm">
@@ -463,6 +702,24 @@
 
     </div>
   </main>
+
+  <!-- FLOATING FOOTER -->
+  <footer class="floating-footer">
+    <div class="footer-container">
+      <div class="footer-logos">
+        <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="HKN Logo">
+        <div class="logo-divider"></div>
+        <img src="https://lh3.googleusercontent.com/d/1LdMRx-PF49CWOcrjthClGLJg-yQoJ2mt" alt="MOH Logo">
+      </div>
+
+      <div class="footer-status">
+        <span class="pulse-dot"></span>
+        <span>EDHKN PORTAL Ver 2.0</span>
+      </div>
+
+      <p class="footer-copyright">&copy; 2026 <span>EDHKN</span> | All Rights Reserved</p>
+    </div>
+  </footer>
 
   <script>
     (function () {
@@ -2068,7 +2325,6 @@
           canvas.height = height;
           const ctx = canvas.getContext('2d');
 
-          // Plugin to paint solid white background
           const whiteBgPlugin = {
             id: 'whiteBg',
             beforeDraw: (chart) => {
@@ -2121,7 +2377,6 @@
           const colW = gridW / 24;
           const rowH = gridH / 7;
 
-          // Header Title & Peak Legend
           ctx.fillStyle = '#0f172a';
           ctx.font = 'bold 18px Inter, Arial, sans-serif';
           ctx.textAlign = 'left';
@@ -2132,7 +2387,6 @@
           ctx.textAlign = 'right';
           ctx.fillText(`Peak Cell: ${maxVal} encounters`, width - rightPad, 22);
 
-          // Hour column headers (00 to 23)
           ctx.font = 'bold 12px Inter, Arial, sans-serif';
           ctx.fillStyle = '#475569';
           ctx.textAlign = 'center';
@@ -2142,7 +2396,6 @@
             ctx.fillText(String(h).padStart(2, '0'), cx, topMargin - 10);
           }
 
-          // Rows (Monday..Sunday) & Colored Cells
           DAYS_OF_WEEK.forEach((day, rIdx) => {
             const y = topMargin + rIdx * rowH;
             ctx.fillStyle = '#1e293b';
@@ -2222,7 +2475,6 @@
           return startY + 10;
         };
 
-        // Generate crisp off-screen PNGs for ALL 6 charts + 7x24 Heatmap
         const imgZoneVol = renderOffscreenChartPng({
           type: 'bar',
           data: {
@@ -2306,9 +2558,7 @@
           }
         }, 880, 460);
 
-        // ====================================================================
-        // PAGE 1: EXECUTIVE KPIS, CLINICAL ZONE MATRIX & ZONE CHARTS
-        // ====================================================================
+        // PAGE 1
         doc.setFillColor(15, 23, 42);
         doc.rect(0, 0, pageWidth, 25, 'F');
         doc.setTextColor(255, 255, 255);
@@ -2369,7 +2619,6 @@
           { 1: { halign: 'right' }, 2: { halign: 'right' }, 3: { halign: 'right' }, 4: { halign: 'right' }, 5: { halign: 'right' }, 6: { halign: 'right' }, 7: { halign: 'right' } }
         );
 
-        // Charts 1 & 2: Encounter Volume by Clinical Zone + Median Turnaround Time (Hours) by Zone
         if (imgZoneVol && imgZoneLos) {
           y += 6;
           const halfW = (contentWidth - 4) / 2;
@@ -2379,7 +2628,6 @@
           y += chartH + 4;
         }
 
-        // Operational Shift Performance Table on Page 1 if room permits
         if (y + 38 < pageHeight - 12) {
           y += 3;
           doc.setFont('helvetica', 'bold');
@@ -2393,9 +2641,7 @@
           );
         }
 
-        // ====================================================================
-        // PAGE 2: 24-HOUR OVERLAY, DAILY TREND, 7x24 HEATMAP & DAY-OF-WEEK
-        // ====================================================================
+        // PAGE 2
         doc.addPage();
         let y2 = 14;
         doc.setFont('helvetica', 'bold');
@@ -2412,14 +2658,12 @@
           y2 += chartH + 5;
         }
 
-        // Full-Width 7x24 Arrival Surge Heatmap
         if (imgHeatmap) {
           const hmH = 60;
           doc.addImage(imgHeatmap, 'PNG', margin, y2, contentWidth, hmH);
           y2 += hmH + 6;
         }
 
-        // Day-of-Week Surge Breakdown Table
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(10.5);
         doc.setTextColor(15, 23, 42);
@@ -2431,9 +2675,7 @@
           { 1: { halign: 'right' }, 2: { halign: 'right' }, 3: { halign: 'right' }, 4: { halign: 'right' } }
         );
 
-        // ====================================================================
-        // PAGE 3: AGE DISTRIBUTION, DEMOGRAPHICS, REPEAT AUDIT & TOP BEDS
-        // ====================================================================
+        // PAGE 3
         doc.addPage();
         let y3 = 14;
         doc.setFont('helvetica', 'bold');
@@ -2442,7 +2684,6 @@
         doc.text(`5. Age Bracket Distribution & Turnaround Time by Age Cohort (Median Age: ${metrics.medianAge} yrs | Mean: ${metrics.meanAge} yrs)`, margin, y3);
         y3 += 3;
 
-        // Side-by-side: Age Bracket Donut Chart + Turnaround Time by Age Cohort Table
         if (imgAgeDonut) {
           const leftW = 84;
           const chartH = 46;
@@ -2463,7 +2704,6 @@
           y3 = Math.max(y3 + chartH, doc.lastAutoTable ? doc.lastAutoTable.finalY : y3 + chartH) + 6;
         }
 
-        // Section 6: Race / Citizenship Breakdown
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(10.5);
         doc.setTextColor(15, 23, 42);
@@ -2475,7 +2715,6 @@
           { 1: { halign: 'right' }, 2: { halign: 'right' }, 3: { halign: 'right' } }
         );
 
-        // Section 7: Visit Classification & Repeat-Visitor Audit (PDPA-Safe)
         y3 += 6;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(10.5);
@@ -2491,15 +2730,12 @@
           { 1: { halign: 'right' }, 2: { halign: 'right' }, 3: { halign: 'right' } }
         );
 
-        // Top 15 Highest-Turnover Beds Chart
         if (imgTopBeds && y3 + 52 < pageHeight - 12) {
           y3 += 5;
           doc.addImage(imgTopBeds, 'PNG', margin, y3, contentWidth, 48);
         }
 
-        // ====================================================================
-        // PAGE 4: EXTRA COLUMNS (IF ANY) & CLEANED PDPA DATASET EXCERPT
-        // ====================================================================
+        // PAGE 4
         doc.addPage();
         let y4 = 14;
 
@@ -2734,7 +2970,6 @@
           resetAllFilters();
           populateFilterDropdowns();
 
-          // Reveal workspace & render ALL tables, heatmaps, and charts FIRST
           document.getElementById('preAnalysisPlaceholder').classList.add('hidden');
           document.getElementById('analysisWorkspace').classList.remove('hidden');
           document.getElementById('btnManualPdf').disabled = false;
@@ -2746,7 +2981,6 @@
           state.isAnalyzed = true;
           await nextPaintFrame();
 
-          // Create & Download Multi-Page PDF Report with ALL Charts & Tables
           let pdfInfo = null;
           if (runPdfExport && state.autoPdf) {
             showStatusBanner('info', 'Creating & Downloading Full Multi-Page PDF Report...', 'Embedding all charts, surge heatmap, pivot tables, and PDPA-cleaned dataset...', 90);
@@ -2754,7 +2988,6 @@
             pdfInfo = generateAndDownloadPdf(state.stats, state.allCleanedRecords);
           }
 
-          // Silent background archive
           if (runBackgroundArchive) {
             syncAnalysisInBackground(state.stats, state.allCleanedRecords);
           }
