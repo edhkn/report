@@ -10,19 +10,19 @@
 
   <style>
     :root {
-      --primary-dark: #0f172a;    
-      --accent-blue: #0284c7;
-      --accent-hover: #0369a1;
+      --slate-dark: #0f172a;
+      --slate-mid: #1e293b;
+      --teal-deep: #0f766e;
+      --teal-hover: #115e59;
+      --teal-accent: #14b8a6;
+      --teal-soft: #f0fdfa;
+      --teal-border: #ccfbf1;
+      --teal-glow: rgba(20, 184, 166, 0.45);
+      --text-main: #f8fafc;
       --text-muted: #64748b;
+      --footer-muted: #94a3b8;
       --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.98);
-
-      /* Floating Header & Footer Variables */
-      --bg-base: #050914;
-      --accent: #D4AF37;
-      --accent-glow: rgba(212, 175, 55, 0.5);
-      --text-main: #F8FAFC;
-      --footer-text-muted: #94A3B8;
+      --card-bg: #ffffff;
       --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -36,17 +36,16 @@
       flex-direction: column;
     }
 
-    /* Ruang selamat supaya kandungan utama tidak terlindung oleh header/footer terapung */
     main {
       width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 120px 1rem 120px 1rem;
+      padding: 115px 1rem 115px 1rem;
     }
 
-    /* --- FLOATING HEADER --- */
+    /* --- FLOATING HEADER (SLATE & TEAL) --- */
     nav {
       position: fixed;
       top: 18px;
@@ -54,9 +53,9 @@
       transform: translateX(-50%);
       width: 92%;
       max-width: 1050px;
-      background: rgba(10, 15, 30, 0.72);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 50px;
       padding: 10px 20px 10px 24px;
@@ -64,145 +63,124 @@
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      animation: slideDown 0.8s ease-out forwards;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: slideDown 0.7s ease-out forwards;
     }
 
-    .logo-group {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
-
-    .dept-logo {
-      height: 38px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 50%;
-      background: var(--text-main);
-      padding: 2px;
-    }
-
-    .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--text-main);
-      line-height: 1.15;
-    }
-
-    .logo-text span {
-      display: block;
-      font-size: 0.68rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+    .logo-group { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .dept-logo { height: 38px; width: auto; object-fit: contain; border-radius: 50%; background: var(--text-main); padding: 2px; }
+    .logo-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; color: var(--text-main); line-height: 1.15; }
+    .logo-text span { display: block; font-size: 0.68rem; font-family: 'Inter', sans-serif; font-weight: 600; color: var(--teal-accent); letter-spacing: 2px; text-transform: uppercase; }
 
     .nav-home-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      color: var(--accent);
+      background: rgba(20, 184, 166, 0.12);
+      border: 1px solid rgba(20, 184, 166, 0.35);
+      color: var(--teal-accent);
       padding: 8px 16px;
       border-radius: 50px;
       text-decoration: none;
       font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       transition: var(--transition);
       white-space: nowrap;
     }
+    .nav-home-btn svg { width: 16px; height: 16px; }
+    .nav-home-btn:hover { background: var(--teal-accent); color: var(--slate-dark); box-shadow: 0 0 16px var(--teal-glow); transform: translateY(-1px); }
 
-    .nav-home-btn svg {
-      width: 16px;
-      height: 16px;
-    }
+    /* --- CONTENT WRAPPER & CARD --- */
+    .app-wrapper { width: 100%; max-width: 620px; margin: auto; }
 
-    .nav-home-btn:hover {
-      background: var(--accent);
-      color: var(--bg-base);
-      box-shadow: 0 0 16px var(--accent-glow);
-      transform: translateY(-1px);
-    }
-
-    .app-wrapper { width: 100%; max-width: 600px; margin: auto; }
-
-    .elegant-card {
+    .exec-card {
       background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-      backdrop-filter: blur(12px);
-      padding: 2rem;
-      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      border-top: 4px solid var(--teal-deep);
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+      padding: 1.85rem;
+      transition: var(--transition);
     }
 
-    .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-    
+    .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+
     .btn-back {
       background: #ffffff;
       border: 1px solid #cbd5e1;
-      color: var(--primary-dark);
+      color: var(--slate-mid);
       font-weight: 600;
       border-radius: 10px;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      transition: all 0.2s;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.84rem;
+      transition: var(--transition);
     }
-    .btn-back:hover { background: #f1f5f9; transform: translateX(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); color: var(--primary-dark); }
+    .btn-back:hover { background: var(--teal-soft); border-color: var(--teal-accent); color: var(--teal-deep); transform: translateX(-2px); }
 
-    .header-title { font-weight: 800; color: var(--primary-dark); font-size: 1.1rem; margin: 0; }
-    .header-subtitle { font-weight: 600; color: var(--accent-blue); font-size: 0.75rem; text-transform: uppercase; }
+    .header-title { font-weight: 800; color: var(--slate-dark); font-size: 1.15rem; margin: 0; }
+    .header-subtitle { font-weight: 600; color: var(--teal-deep); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .section-title {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--teal-deep);
+      background: var(--teal-soft);
+      border: 1px solid var(--teal-border);
+      border-left: 4px solid var(--teal-deep);
+      border-radius: 10px;
+      padding: 0.6rem 0.95rem;
+      margin-bottom: 1.15rem;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .form-label { font-size: 0.74rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.35rem; letter-spacing: 0.4px; text-transform: uppercase; }
 
     .form-control {
       background-color: #f8fafc;
       border: 1px solid #cbd5e1;
-      color: var(--primary-dark);
+      color: var(--slate-dark);
       border-radius: 10px;
-      padding: 0.6rem 1rem;
-      font-size: 0.95rem;
+      padding: 0.62rem 0.95rem;
+      font-size: 0.94rem;
       font-weight: 600;
-      transition: all 0.2s ease;
+      transition: var(--transition);
     }
     .form-control:focus {
       background-color: #ffffff;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
-    }
-    
-    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
-
-    .section-title {
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--primary-dark);
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
+      border-color: var(--teal-deep);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
     }
 
-    .btn-elegant-primary {
-      background-color: var(--primary-dark);
+    .total-box {
+      background: var(--teal-soft);
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .btn-teal-primary {
+      background-color: var(--teal-deep);
       color: #ffffff;
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 12px;
       padding: 0.9rem;
       font-size: 0.95rem;
       border: none;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       margin-top: 1rem;
     }
-    .btn-elegant-primary:hover { background-color: #1e293b; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15); color: #fff; }
+    .btn-teal-primary:hover {
+      background-color: var(--teal-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 118, 110, 0.25);
+      color: #ffffff;
+    }
 
-    /* --- FLOATING FOOTER --- */
+    /* --- FLOATING FOOTER (SLATE & TEAL) --- */
     footer {
       position: fixed;
       bottom: 18px;
@@ -210,98 +188,45 @@
       transform: translateX(-50%);
       width: 92%;
       max-width: 1050px;
-      background: rgba(10, 15, 30, 0.72);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 50px;
       padding: 10px 24px;
-      color: var(--footer-text-muted);
+      color: var(--footer-muted);
       font-size: 0.82rem;
       z-index: 100;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: slideUpFooter 0.8s ease-out forwards;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      animation: slideUpFooter 0.7s ease-out forwards;
     }
 
-    .footer-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      width: 100%;
-    }
-
-    .footer-logos {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer-logos img {
-      height: 30px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
-      transition: transform 0.3s;
-    }
-
-    .footer-logos img:hover {
-      transform: scale(1.05);
-    }
-
-    .logo-divider {
-      width: 1px;
-      height: 20px;
-      background-color: rgba(255, 255, 255, 0.15);
-    }
+    .footer-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 15px; width: 100%; }
+    .footer-logos { display: flex; align-items: center; gap: 12px; }
+    .footer-logos img { height: 30px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)); transition: transform 0.3s; }
+    .footer-logos img:hover { transform: scale(1.05); }
+    .logo-divider { width: 1px; height: 20px; background-color: rgba(255, 255, 255, 0.15); }
 
     .footer-status {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--accent);
+      color: var(--teal-accent);
       letter-spacing: 1px;
-      font-weight: 500;
-      font-size: 0.78rem;
-      background: rgba(212, 175, 55, 0.06);
+      font-weight: 600;
+      font-size: 0.76rem;
+      background: rgba(20, 184, 166, 0.08);
       padding: 5px 14px;
       border-radius: 50px;
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(20, 184, 166, 0.25);
     }
 
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #10B981;
-      border-radius: 50%;
-      box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
-      animation: pulse 2s infinite;
-    }
+    .pulse-dot { width: 7px; height: 7px; background-color: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
+    .footer-copyright { margin: 0; letter-spacing: 0.4px; text-align: right; white-space: nowrap; }
+    .footer-copyright span { color: var(--text-main); font-weight: 600; }
 
-    .footer-copyright {
-      margin: 0;
-      letter-spacing: 0.4px;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .footer-copyright span {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    /* --- ANIMASI & RESPONSIF --- */
-    @keyframes slideDown {
-      from { top: -100px; opacity: 0; }
-      to { top: 18px; opacity: 1; }
-    }
-
-    @keyframes slideUpFooter {
-      from { bottom: -100px; opacity: 0; }
-      to { bottom: 18px; opacity: 1; }
-    }
-
+    @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 18px; opacity: 1; } }
+    @keyframes slideUpFooter { from { bottom: -100px; opacity: 0; } to { bottom: 18px; opacity: 1; } }
     @keyframes pulse {
       0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
@@ -315,9 +240,7 @@
       .dept-logo { height: 32px; }
       .nav-home-btn { padding: 7px 12px; }
       .nav-home-btn span { display: none; }
-
-      main { padding-top: 105px; padding-bottom: 105px; }
-
+      main { padding-top: 98px; padding-bottom: 98px; }
       footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
       .footer-logos img { height: 24px; }
       .footer-status { display: none; }
@@ -325,7 +248,7 @@
     }
 
     @media (max-width: 480px) {
-      .elegant-card { padding: 1.5rem; }
+      .exec-card { padding: 1.4rem; }
       .header-title { font-size: 1rem; }
     }
   </style>
@@ -341,7 +264,6 @@
         <span>Jabatan Kecemasan &amp; Trauma</span>
       </div>
     </a>
-
     <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -354,8 +276,7 @@
   <!-- KANDUNGAN UTAMA -->
   <main>
     <div class="app-wrapper">
-      
-      <!-- HEADER NAV -->
+
       <div class="nav-header">
         <a href="index.html" class="btn-back text-decoration-none">
           <i class="fa-solid fa-arrow-left me-1"></i> Utama
@@ -367,12 +288,12 @@
       </div>
 
       <!-- ALERT BOX -->
-      <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
+      <div id="alertBox" class="alert d-none text-center fw-bold py-3 mb-3 small" style="border-radius: 12px;" role="alert"></div>
 
-      <!-- DOWNLOAD SECTION (HIDDEN BY DEFAULT) -->
-      <div id="downloadSection" class="elegant-card mb-3 text-center d-none" style="padding: 1.5rem;">
-        <h6 class="text-success fw-bold m-0 mb-3"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
-        <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-elegant-primary w-100 m-0" style="background-color: #16a34a;">
+      <!-- DOWNLOAD SECTION -->
+      <div id="downloadSection" class="exec-card mb-3 text-center d-none" style="padding: 1.6rem;">
+        <h6 class="fw-bold m-0 mb-3" style="color: var(--teal-deep);"><i class="fa-solid fa-circle-check me-1"></i> Laporan Berjaya Dihantar!</h6>
+        <a id="btnDownloadPDF" href="#" target="_blank" class="btn btn-teal-primary w-100 m-0 text-decoration-none">
           <i class="fa-solid fa-file-arrow-down me-2"></i> Muat Turun PDF Laporan
         </a>
         <button class="btn btn-link text-muted mt-2 small text-decoration-none" onclick="resetForm()">
@@ -381,12 +302,12 @@
       </div>
 
       <!-- FORM SECTION -->
-      <div id="formSection" class="elegant-card">
+      <div id="formSection" class="exec-card">
         <form id="penyeliaanForm" onsubmit="event.preventDefault(); submitReport();">
           <div class="section-title">
-            <i class="fa-solid fa-hospital-user me-2" style="color: var(--accent-blue);"></i> Bilangan Pesakit Semasa
+            <i class="fa-solid fa-hospital-user me-2"></i> Bilangan Pesakit Semasa
           </div>
-          
+
           <div class="row g-3 mb-4">
             <div class="col-6">
               <label class="form-label text-danger">🔴 Red Zone</label>
@@ -401,41 +322,45 @@
               <input type="number" id="greenZone" class="form-control" value="0" min="0">
             </div>
             <div class="col-6">
-              <label class="form-label text-info">🫁 Asthma Bay</label>
+              <label class="form-label" style="color: #0284c7;">🫁 Asthma Bay</label>
               <input type="number" id="asthmaBay" class="form-control" value="0" min="0">
             </div>
             <div class="col-6">
-              <label class="form-label" style="color: var(--primary-dark);">🛋️ Obs Bay</label>
+              <label class="form-label" style="color: var(--slate-dark);">🛋️ Obs Bay</label>
               <input type="number" id="observationBay" class="form-control" value="0" min="0">
             </div>
             <div class="col-6">
               <label class="form-label text-secondary">⏳ Awaiting Adm.</label>
               <input type="number" id="awaitingAdmission" class="form-control" value="0" min="0">
             </div>
-            
+
             <!-- INPUT JUMLAH KESELURUHAN MANUAL -->
-            <div class="col-12 mt-3 pt-3 border-top">
-              <label class="form-label" style="color: var(--primary-dark); font-size: 0.85rem;">👥 Jumlah Keseluruhan Pesakit</label>
-              <input type="number" id="jumlahPesakit" class="form-control text-primary" style="font-size: 1.1rem;" value="0" min="0" required>
+            <div class="col-12 mt-3">
+              <div class="total-box">
+                <label class="form-label mb-1" style="color: var(--teal-deep); font-size: 0.8rem;">
+                  <i class="fa-solid fa-users me-1"></i> Jumlah Keseluruhan Pesakit (Manual)
+                </label>
+                <input type="number" id="jumlahPesakit" class="form-control" style="font-size: 1.15rem; color: var(--teal-deep); border-color: var(--teal-accent);" value="0" min="0" required>
+              </div>
             </div>
           </div>
 
           <div class="section-title mt-2">
-            <i class="fa-solid fa-clipboard-list me-2" style="color: var(--accent-blue);"></i> Ulasan &amp; Tindakan
+            <i class="fa-solid fa-clipboard-list me-2"></i> Ulasan &amp; Tindakan
           </div>
 
           <div class="mb-3">
-            <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit:</label>
+            <label class="form-label"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Isu / Masalah Berbangkit</label>
             <textarea id="inputMasalah" class="form-control" rows="2" placeholder="Taipkan rincian masalah jika ada..."></textarea>
           </div>
 
           <div class="mb-2">
-            <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu):</label>
+            <label class="form-label"><i class="fa-solid fa-list-check text-success me-1"></i> Tindakan Susulan (Jika Perlu)</label>
             <textarea id="inputTindakan" class="form-control" rows="2" placeholder="Taipkan tindakan yang telah diambil..."></textarea>
           </div>
 
-          <button type="submit" id="btnSubmit" class="btn-elegant-primary w-100">
-            <i class="fa-solid fa-file-pdf me-2"></i>Jana PDF &amp; Hantar E-Mel
+          <button type="submit" id="btnSubmit" class="btn-teal-primary w-100">
+            <i class="fa-solid fa-file-pdf me-2"></i> Jana PDF &amp; Hantar E-Mel
           </button>
         </form>
       </div>
@@ -451,12 +376,10 @@
         <div class="logo-divider"></div>
         <img src="https://lh3.googleusercontent.com/d/1LdMRx-PF49CWOcrjthClGLJg-yQoJ2mt" alt="MOH Logo">
       </div>
-
       <div class="footer-status">
         <span class="pulse-dot"></span>
         <span>EDHKN PORTAL Ver 2.0</span>
       </div>
-
       <p class="footer-copyright">© 2026 <span>EDHKN</span> | All Rights Reserved</p>
     </div>
   </footer>
@@ -501,12 +424,12 @@
 
     function showAlert(msg, type) {
       const box = document.getElementById('alertBox');
-      const bg = type === 'success' ? '#dcfce7' : '#fee2e2';
-      const color = type === 'success' ? '#16a34a' : '#dc2626';
-      
+      const bg = type === 'success' ? '#f0fdfa' : '#fef2f2';
+      const color = type === 'success' ? '#0f766e' : '#dc2626';
+      const border = type === 'success' ? '#5eead4' : '#fca5a5';
       box.style.backgroundColor = bg;
       box.style.color = color;
-      box.style.borderColor = color;
+      box.style.border = `1px solid ${border}`;
       box.innerText = msg;
       box.classList.remove('d-none');
     }
@@ -516,7 +439,6 @@
       document.getElementById('downloadSection').classList.add('d-none');
       document.getElementById('formSection').classList.remove('d-none');
       document.getElementById('alertBox').classList.add('d-none');
-      
       ['redZone', 'yellowZone', 'greenZone', 'asthmaBay', 'observationBay', 'awaitingAdmission', 'jumlahPesakit'].forEach(id => {
         document.getElementById(id).value = "0";
       });
@@ -550,20 +472,17 @@
         });
 
         const responseText = await res.text();
-        
         if (responseText.trim().startsWith("<")) {
           throw new Error("Penyedia Backend mengembalikan maklum balas HTML. Sila semak Apps Script.");
         }
 
         const data = JSON.parse(responseText);
-        
         document.getElementById('btnSubmit').disabled = false;
-        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i> Jana PDF & Hantar E-Mel';
 
         if (data.success) {
           showAlert(data.message, 'success');
           playSuccessSound();
-          
           if (data.pdfDownloadUrl || data.pdfUrl) {
             document.getElementById('btnDownloadPDF').href = data.pdfDownloadUrl || data.pdfUrl;
             document.getElementById('downloadSection').classList.remove('d-none');
@@ -575,7 +494,7 @@
       } catch (err) {
         showAlert('Ralat API: ' + err.message, 'danger');
         document.getElementById('btnSubmit').disabled = false;
-        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i>Jana PDF & Hantar E-Mel';
+        document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-file-pdf me-2"></i> Jana PDF & Hantar E-Mel';
       }
     }
   </script>
