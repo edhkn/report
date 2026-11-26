@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Utama - Unit Kecemasan & Trauma</title>
+  <title>EDHKN E-Report System - Hospital Kuala Nerang</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts (Inter & Playfair Display) & Font Awesome -->
@@ -12,41 +12,61 @@
 
   <style>
     :root {
-      --primary-dark: #0f172a;    /* Deep Executive Navy */
-      --accent-blue: #0284c7;
-      --accent-hover: #0369a1;
-      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.98);
-
-      /* Floating Header & Footer Variables */
       --bg-base: #050914;
+      --bg-surface: rgba(15, 23, 42, 0.72);
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --border-gold: rgba(212, 175, 55, 0.35);
       --accent: #D4AF37;
-      --accent-glow: rgba(212, 175, 55, 0.5);
+      --accent-light: #F3E5AB;
+      --accent-glow: rgba(212, 175, 55, 0.45);
+      --accent-blue: #38bdf8;
       --text-main: #F8FAFC;
-      --text-muted: #64748b;
-      --footer-text-muted: #94A3B8;
+      --text-muted: #94A3B8;
       --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
+    * { box-sizing: border-box; }
+
     body {
-      background: var(--bg-gradient);
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(2, 132, 199, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9) 0%, #050914 100%);
+      background-attachment: fixed;
       font-family: 'Inter', sans-serif;
-      color: #334155;
+      color: var(--text-main);
       min-height: 100vh;
       margin: 0;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Corak grid halus latar belakang */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* Ruang selamat supaya kandungan utama tidak terlindung oleh header/footer terapung */
     main {
+      position: relative;
+      z-index: 1;
       width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 120px 1rem 120px 1rem;
+      padding: 115px 1rem 115px 1rem;
     }
 
     /* --- FLOATING HEADER --- */
@@ -57,10 +77,10 @@
       transform: translateX(-50%);
       width: 92%;
       max-width: 1050px;
-      background: rgba(10, 15, 30, 0.72);
+      background: rgba(10, 15, 30, 0.78);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
       border-radius: 50px;
       padding: 10px 20px 10px 24px;
       display: flex;
@@ -122,10 +142,7 @@
       white-space: nowrap;
     }
 
-    .nav-home-btn svg {
-      width: 16px;
-      height: 16px;
-    }
+    .nav-home-btn svg { width: 16px; height: 16px; }
 
     .nav-home-btn:hover {
       background: var(--accent);
@@ -134,106 +151,331 @@
       transform: translateY(-1px);
     }
 
-    /* Responsive Wrapper - Auto adjusts for PC and Mobile */
+    /* --- WRAPPER & HERO --- */
     .app-wrapper {
       width: 100%;
       max-width: 520px;
       margin: auto;
+      animation: fadeUp 0.6s ease-out;
     }
 
-    /* Elegant Card Design */
-    .elegant-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-      backdrop-filter: blur(12px);
-      padding: 2.5rem 2rem;
-      transition: all 0.3s ease;
-    }
-
-    .logo-img { width: 85px; height: auto; margin-bottom: 1rem; }
-
-    .app-title { font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; font-size: 1.25rem; }
-    .app-subtitle { font-weight: 600; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-
-    /* Elegant Input Fields */
-    .form-control {
-      background-color: #f8fafc;
-      border: 1px solid #cbd5e1;
-      color: var(--primary-dark);
-      border-radius: 10px;
-      padding: 0.8rem 1.2rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    .form-control:focus {
-      background-color: #ffffff;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
-    }
-    .form-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem; letter-spacing: 0.5px; }
-
-    /* Elegant Buttons */
-    .btn-elegant-primary {
-      background-color: var(--primary-dark);
-      color: #ffffff;
-      font-weight: 600;
-      border-radius: 10px;
-      padding: 0.8rem 1.5rem;
-      font-size: 0.95rem;
-      border: none;
-      transition: all 0.3s ease;
-    }
-    .btn-elegant-primary:hover {
-      background-color: #1e293b;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 15px rgba(15, 23, 42, 0.15);
-      color: #fff;
-    }
-
-    /* Portal Menu Buttons (Modern Tiles) */
-    .portal-tile {
-      display: flex;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      padding: 1rem 1.25rem;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      text-decoration: none;
-      color: var(--primary-dark);
-      transition: all 0.3s ease;
-      margin-bottom: 0.8rem;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: var(--accent-light);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
     }
-    .portal-tile:hover {
-      border-color: var(--accent-blue);
-      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.12);
-      transform: translateY(-3px);
+
+    .app-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      letter-spacing: 0.5px;
+      margin: 0;
+      background: linear-gradient(135deg, #ffffff 30%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .tile-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
+
+    .app-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
-      margin-right: 1.25rem;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .live-clock {
+      color: var(--accent-blue);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* --- GLASS CARD --- */
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      padding: 2.2rem 2rem;
+      transition: var(--transition);
+    }
+
+    .card-heading {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .card-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.6rem;
+    }
+
+    /* --- INPUTS WITH ICONS --- */
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrap .input-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .input-wrap .toggle-pass {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 6px;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .input-wrap .toggle-pass:hover { color: var(--accent); }
+
+    .form-control {
+      background: rgba(5, 9, 20, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      border-radius: 12px;
+      padding: 0.78rem 2.6rem 0.78rem 2.5rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .form-control::placeholder { color: rgba(148, 163, 184, 0.55); }
+
+    .form-control:focus {
+      background: rgba(5, 9, 20, 0.9);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+    }
+
+    .input-wrap:focus-within .input-icon { color: var(--accent); }
+
+    /* --- BUTTONS --- */
+    .btn-gold {
+      background: linear-gradient(135deg, #D4AF37 0%, #b58d22 100%);
+      color: #050914;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.94rem;
+      border: none;
+      letter-spacing: 0.3px;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-gold:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(212, 175, 55, 0.4);
+      color: #050914;
+    }
+
+    .btn-gold:disabled, .btn-emerald:disabled, .btn-amber:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.94rem;
+      border: none;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    }
+    .btn-emerald:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(16, 185, 129, 0.4);
+      color: #ffffff;
+    }
+
+    .btn-amber {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #050914;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.94rem;
+      border: none;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+    }
+    .btn-amber:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(245, 158, 11, 0.4);
+      color: #050914;
+    }
+
+    a.elegant-link {
+      color: var(--accent-light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    a.elegant-link:hover { color: var(--accent); text-decoration: underline; }
+
+    /* --- ALERT BOX --- */
+    .custom-alert {
+      border-radius: 14px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      backdrop-filter: blur(12px);
+      animation: fadeUp 0.25s ease-out;
+    }
+    .alert-ok {
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+    .alert-err {
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    /* --- PORTAL PROFILE & TILES --- */
+    .profile-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .profile-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .avatar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(56, 189, 248, 0.2));
+      border: 1px solid var(--border-gold);
+      color: var(--accent-light);
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
     }
-    .icon-blue { background: #e0f2fe; color: #0284c7; }
-    .icon-green { background: #dcfce7; color: #16a34a; }
-    .icon-purple { background: #f3e8ff; color: #9333ea; }
-    
-    .tile-content { flex-grow: 1; }
-    .tile-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
-    .tile-desc { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
-    .tile-arrow { color: #cbd5e1; font-size: 1rem; transition: transform 0.2s; }
-    .portal-tile:hover .tile-arrow { color: var(--accent-blue); transform: translateX(4px); }
 
-    a.elegant-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
-    a.elegant-link:hover { color: var(--accent-hover); text-decoration: underline; }
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 10px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-logout:hover {
+      background: #ef4444;
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    .portal-tile {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.15rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+      margin-bottom: 0.85rem;
+    }
+
+    .portal-tile:last-child { margin-bottom: 0; }
+
+    .portal-tile:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--border-gold);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 18px rgba(212, 175, 55, 0.12);
+      transform: translateY(-3px);
+      color: #ffffff;
+    }
+
+    .tile-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .icon-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.25); }
+    .icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); }
+    .icon-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.25); }
+
+    .tile-content { flex-grow: 1; min-width: 0; }
+    .tile-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.18rem; }
+    .tile-desc { font-size: 0.76rem; color: var(--text-muted); line-height: 1.35; }
+    .tile-arrow { color: rgba(255, 255, 255, 0.28); font-size: 0.95rem; transition: var(--transition); margin-left: 8px; }
+    .portal-tile:hover .tile-arrow { color: var(--accent); transform: translateX(4px); }
 
     /* --- FLOATING FOOTER --- */
     footer {
@@ -243,13 +485,13 @@
       transform: translateX(-50%);
       width: 92%;
       max-width: 1050px;
-      background: rgba(10, 15, 30, 0.72);
+      background: rgba(10, 15, 30, 0.78);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
       border-radius: 50px;
       padding: 10px 24px;
-      color: var(--footer-text-muted);
+      color: var(--text-muted);
       font-size: 0.82rem;
       z-index: 100;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -265,12 +507,7 @@
       width: 100%;
     }
 
-    .footer-logos {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .footer-logos { display: flex; align-items: center; gap: 12px; }
     .footer-logos img {
       height: 30px;
       width: auto;
@@ -278,16 +515,9 @@
       filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
       transition: transform 0.3s;
     }
+    .footer-logos img:hover { transform: scale(1.05); }
 
-    .footer-logos img:hover {
-      transform: scale(1.05);
-    }
-
-    .logo-divider {
-      width: 1px;
-      height: 20px;
-      background-color: rgba(255, 255, 255, 0.15);
-    }
+    .logo-divider { width: 1px; height: 20px; background-color: rgba(255, 255, 255, 0.15); }
 
     .footer-status {
       display: flex;
@@ -312,29 +542,22 @@
       animation: pulse 2s infinite;
     }
 
-    .footer-copyright {
-      margin: 0;
-      letter-spacing: 0.4px;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .footer-copyright span {
-      color: var(--text-main);
-      font-weight: 500;
-    }
+    .footer-copyright { margin: 0; letter-spacing: 0.4px; text-align: right; white-space: nowrap; }
+    .footer-copyright span { color: var(--text-main); font-weight: 500; }
 
     /* --- ANIMASI & RESPONSIF --- */
     @keyframes slideDown {
       from { top: -100px; opacity: 0; }
       to { top: 18px; opacity: 1; }
     }
-
     @keyframes slideUpFooter {
       from { bottom: -100px; opacity: 0; }
       to { bottom: 18px; opacity: 1; }
     }
-
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @keyframes pulse {
       0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
@@ -349,7 +572,7 @@
       .nav-home-btn { padding: 7px 12px; }
       .nav-home-btn span { display: none; }
 
-      main { padding-top: 105px; padding-bottom: 105px; }
+      main { padding-top: 98px; padding-bottom: 98px; }
 
       footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
       .footer-logos img { height: 24px; }
@@ -358,8 +581,9 @@
     }
 
     @media (max-width: 480px) {
-      .elegant-card { padding: 2rem 1.5rem; }
-      .tile-icon { width: 42px; height: 42px; font-size: 1.1rem; margin-right: 1rem; }
+      .glass-card { padding: 1.75rem 1.35rem; border-radius: 20px; }
+      .app-title { font-size: 1.45rem; }
+      .tile-icon { width: 42px; height: 42px; font-size: 1.1rem; margin-right: 0.85rem; }
     }
   </style>
 </head>
@@ -371,7 +595,7 @@
       <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
       <div class="logo-text">
         Hospital Kuala Nerang
-        <span>Jabatan Kecemasan & Trauma</span>
+        <span>Jabatan Kecemasan &amp; Trauma</span>
       </div>
     </a>
 
@@ -387,60 +611,91 @@
   <!-- KANDUNGAN UTAMA -->
   <main>
     <div class="app-wrapper">
-      
-      <!-- HEADER LOGO & TITLE -->
+
+      <!-- HERO TITLE -->
       <div class="text-center mb-4">
-        <h3 class="app-title">EDHKN E-REPORT SYSTEM</h3>
-        <p class="app-subtitle">Hospital Kuala Nerang</p>
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          Sistem Pelaporan Digital
+        </div>
+        <h1 class="app-title">EDHKN E-REPORT SYSTEM</h1>
+        <div class="app-subtitle">
+          <span>Hospital Kuala Nerang</span>
+          <span>&bull;</span>
+          <span id="liveClock" class="live-clock">--:--:--</span>
+        </div>
       </div>
 
       <!-- ALERT BOX -->
-      <div id="alertBox" class="alert d-none elegant-card text-center fw-bold py-3 mb-3 small" style="padding: 1rem!important; border-radius: 12px;" role="alert"></div>
+      <div id="alertBox" class="custom-alert d-none" role="alert"></div>
 
       <!-- 1. LOG IN FORM SECTION -->
-      <div id="loginSection" class="elegant-card">
-        <h5 class="mb-4 text-center fw-bold" style="color: var(--primary-dark);">
-          Log Masuk Portal
-        </h5>
-        <div class="mb-3">
-          <label class="form-label">NAMA PENGGUNA (USERNAME)</label>
-          <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username Anda" required>
+      <div id="loginSection" class="glass-card">
+        <div class="text-center">
+          <div class="card-heading">Log Masuk Portal</div>
+          <div class="card-sub">Sila masukkan kelayakan akses kakitangan anda</div>
         </div>
-        <div class="mb-4">
-          <label class="form-label">KATA LALUAN</label>
-          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
-        </div>
-        <button class="btn btn-elegant-primary w-100 mb-3" onclick="handleApi('login')">
-          Log Masuk Akses <i class="fa-solid fa-arrow-right ms-2"></i>
-        </button>
-        <div class="d-flex justify-content-between">
-          <a href="#" class="elegant-link" onclick="showSection('registerSection')">Pendaftaran Baharu</a>
-          <a href="#" class="elegant-link" style="color: var(--text-muted);" onclick="showSection('forgotSection')">Lupa Kata Laluan?</a>
+
+        <form onsubmit="event.preventDefault(); handleApi('login', this.querySelector('button[type=submit]'));">
+          <div class="mb-3">
+            <label class="form-label" for="loginUsername">Nama Pengguna (Username)</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username Anda" autocomplete="username" required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="loginPassword">Kata Laluan</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" class="toggle-pass" onclick="togglePassword('loginPassword', this)" aria-label="Tunjuk kata laluan">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold w-100 mb-3">
+            Log Masuk Akses <i class="fa-solid fa-arrow-right ms-2"></i>
+          </button>
+        </form>
+
+        <div class="d-flex justify-content-between pt-1">
+          <a href="#" class="elegant-link" onclick="event.preventDefault(); showSection('registerSection')">
+            <i class="fa-solid fa-user-plus me-1"></i> Pendaftaran Baharu
+          </a>
+          <a href="#" class="elegant-link" style="color: var(--text-muted);" onclick="event.preventDefault(); showSection('forgotSection')">
+            Lupa Kata Laluan?
+          </a>
         </div>
       </div>
 
       <!-- 2. MAIN PORTAL SECTION (AFTER LOGIN) -->
-      <div id="portalSection" class="elegant-card d-none">
-        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
-          <div>
-            <h6 class="m-0 fw-bold" style="color: var(--primary-dark);" id="userDisplayName">Selamat Datang</h6>
-            <small id="userDisplayEmail" class="text-muted" style="font-weight: 500;"></small>
+      <div id="portalSection" class="glass-card d-none">
+        <div class="profile-bar">
+          <div class="profile-left">
+            <div class="avatar-circle" id="userAvatar">ED</div>
+            <div class="min-w-0">
+              <div style="font-size: 0.72rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;" id="greetingText">Selamat Datang</div>
+              <div class="fw-bold text-truncate" style="font-size: 1rem;" id="userDisplayName">Penyelia</div>
+              <div class="text-truncate" style="font-size: 0.75rem; color: var(--text-muted);" id="userDisplayEmail"></div>
+            </div>
           </div>
-          <button class="btn btn-sm btn-light fw-bold text-danger border" style="border-radius:8px;" onclick="logout()">
-            <i class="fa-solid fa-power-off"></i> Log Keluar
+          <button class="btn-logout" onclick="logout()">
+            <i class="fa-solid fa-power-off me-1"></i> Keluar
           </button>
         </div>
 
-        <p class="form-label mb-3">MODUL LAPORAN DIGITAL</p>
+        <p class="form-label mb-3">Modul Laporan Digital</p>
 
         <div class="d-flex flex-column">
-          
           <!-- PAUTAN KE LAPORAN PENYELIAAN -->
           <a href="laporanpenyeliaan.html" class="portal-tile">
             <div class="tile-icon icon-blue"><i class="fa-solid fa-clipboard-user"></i></div>
             <div class="tile-content">
               <div class="tile-title">Laporan Penyeliaan</div>
-              <div class="tile-desc">Borang bilangan pesakit & laporan pemerhatian zon kecemasan.</div>
+              <div class="tile-desc">Borang bilangan pesakit &amp; laporan pemerhatian zon kecemasan.</div>
             </div>
             <i class="fa-solid fa-chevron-right tile-arrow"></i>
           </a>
@@ -460,54 +715,93 @@
             <div class="tile-icon icon-purple"><i class="fa-solid fa-file-contract"></i></div>
             <div class="tile-content">
               <div class="tile-title">Ringkasan Laporan PHC</div>
-              <div class="tile-desc">Semakan senarai kes terdahulu & muat turun fail PDF.</div>
+              <div class="tile-desc">Semakan senarai kes terdahulu &amp; muat turun fail PDF.</div>
             </div>
             <i class="fa-solid fa-chevron-right tile-arrow"></i>
           </a>
-
         </div>
       </div>
 
       <!-- 3. REGISTER FORM -->
-      <div id="registerSection" class="elegant-card d-none">
-        <h5 class="mb-4 text-center fw-bold" style="color: var(--primary-dark);">Pendaftaran Akaun</h5>
-        
-        <div class="mb-3">
-          <label class="form-label">USERNAME</label>
-          <input type="text" id="regUsername" class="form-control" placeholder="Cipta Username" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">NAMA PENUH</label>
-          <input type="text" id="regNama" class="form-control" placeholder="Nama Rasmi Penyelia" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">E-MEL KEMENTERIAN</label>
-          <input type="email" id="regEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
-        </div>
-        <div class="mb-4">
-          <label class="form-label">KATA LALUAN</label>
-          <input type="password" id="regPassword" class="form-control" placeholder="Cipta Kata Laluan" required>
-        </div>
-        
-        <button class="btn btn-elegant-primary w-100 mb-3" style="background-color: #16a34a;" onclick="handleApi('register')">Daftar Akaun Baru</button>
+      <div id="registerSection" class="glass-card d-none">
         <div class="text-center">
-          <a href="#" class="elegant-link text-muted" onclick="showSection('loginSection')"><i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Log Masuk</a>
+          <div class="card-heading">Pendaftaran Akaun</div>
+          <div class="card-sub">Daftar akaun penyelia baharu menggunakan e-mel rasmi</div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); handleApi('register', this.querySelector('button[type=submit]'));">
+          <div class="mb-3">
+            <label class="form-label" for="regUsername">Username</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-at input-icon"></i>
+              <input type="text" id="regUsername" class="form-control" placeholder="Cipta Username" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="regNama">Nama Penuh</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-id-card input-icon"></i>
+              <input type="text" id="regNama" class="form-control" placeholder="Nama Rasmi Penyelia" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="regEmail">E-Mel Kementerian</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" id="regEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="regPassword">Kata Laluan</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="regPassword" class="form-control" placeholder="Cipta Kata Laluan" required>
+              <button type="button" class="toggle-pass" onclick="togglePassword('regPassword', this)" aria-label="Tunjuk kata laluan">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-emerald w-100 mb-3">
+            <i class="fa-solid fa-user-check me-2"></i> Daftar Akaun Baru
+          </button>
+        </form>
+
+        <div class="text-center">
+          <a href="#" class="elegant-link" style="color: var(--text-muted);" onclick="event.preventDefault(); showSection('loginSection')">
+            <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Log Masuk
+          </a>
         </div>
       </div>
 
       <!-- 4. FORGOT PASSWORD -->
-      <div id="forgotSection" class="elegant-card d-none">
-        <h5 class="mb-3 text-center fw-bold" style="color: var(--primary-dark);">Pemulihan Kata Laluan</h5>
-        <p class="text-muted text-center mb-4" style="font-size:0.85rem;">Kata laluan anda akan dihantar terus ke alamat e-mel berdaftar.</p>
-        
-        <div class="mb-4">
-          <label class="form-label">E-MEL BERDAFTAR</label>
-          <input type="email" id="forgotEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
-        </div>
-        
-        <button class="btn btn-elegant-primary w-100 mb-3" style="background-color: #d97706;" onclick="handleApi('retrieve')">Hantar Kata Laluan</button>
+      <div id="forgotSection" class="glass-card d-none">
         <div class="text-center">
-          <a href="#" class="elegant-link text-muted" onclick="showSection('loginSection')"><i class="fa-solid fa-arrow-left me-1"></i> Batal & Kembali</a>
+          <div class="card-heading">Pemulihan Kata Laluan</div>
+          <div class="card-sub">Kata laluan akan dihantar terus ke alamat e-mel berdaftar anda</div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); handleApi('retrieve', this.querySelector('button[type=submit]'));">
+          <div class="mb-4">
+            <label class="form-label" for="forgotEmail">E-Mel Berdaftar</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" id="forgotEmail" class="form-control" placeholder="contoh@moh.gov.my" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-amber w-100 mb-3">
+            <i class="fa-solid fa-paper-plane me-2"></i> Hantar Kata Laluan
+          </button>
+        </form>
+
+        <div class="text-center">
+          <a href="#" class="elegant-link" style="color: var(--text-muted);" onclick="event.preventDefault(); showSection('loginSection')">
+            <i class="fa-solid fa-arrow-left me-1"></i> Batal &amp; Kembali
+          </a>
         </div>
       </div>
 
@@ -535,42 +829,81 @@
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbx21hpI88izcRUUIaq77sVTSQoTmG3riExl8azhaYf2jk0p3qyc2KSSDe5uNbv3SX8XPg/exec";
 
-    // Semak Sesi Log Masuk
+    // Jam & Ucapan Masa Nyata
+    function updateClockAndGreeting() {
+      const now = new Date();
+      const clockEl = document.getElementById('liveClock');
+      if (clockEl) {
+        clockEl.innerText = now.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+      const hr = now.getHours();
+      let greet = "Selamat Malam";
+      if (hr >= 5 && hr < 12) greet = "Selamat Pagi";
+      else if (hr >= 12 && hr < 15) greet = "Selamat Tengah Hari";
+      else if (hr >= 15 && hr < 19) greet = "Selamat Petang";
+      const greetEl = document.getElementById('greetingText');
+      if (greetEl) greetEl.innerText = greet;
+    }
+
+    function setUserProfile(user) {
+      document.getElementById('userDisplayName').innerText = user.nama || 'Penyelia';
+      document.getElementById('userDisplayEmail').innerText = user.email || '';
+      const initials = (user.nama || 'ED')
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(w => w[0].toUpperCase())
+        .join('');
+      document.getElementById('userAvatar').innerText = initials || 'ED';
+    }
+
     window.onload = function() {
+      updateClockAndGreeting();
+      setInterval(updateClockAndGreeting, 1000);
+
       const user = localStorage.getItem('currentUser');
       if (user) {
-        const currentUser = JSON.parse(user);
-        document.getElementById('userDisplayName').innerText = currentUser.nama;
-        document.getElementById('userDisplayEmail').innerText = currentUser.email;
+        setUserProfile(JSON.parse(user));
         showSection('portalSection');
       }
     };
 
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-regular fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fa-regular fa-eye';
+      }
+    }
+
     function showAlert(msg, type) {
       const box = document.getElementById('alertBox');
-      const bg = type === 'success' ? '#dcfce7' : '#fee2e2';
-      const color = type === 'success' ? '#16a34a' : '#dc2626';
-      
-      box.style.backgroundColor = bg;
-      box.style.color = color;
-      box.style.borderColor = color;
-      box.innerText = msg;
+      const icon = type === 'success'
+        ? '<i class="fa-solid fa-circle-check"></i>'
+        : '<i class="fa-solid fa-circle-exclamation"></i>';
+      box.className = `custom-alert ${type === 'success' ? 'alert-ok' : 'alert-err'}`;
+      box.innerHTML = `${icon}<span>${msg}</span>`;
       box.classList.remove('d-none');
     }
 
     function showSection(id) {
       document.getElementById('alertBox').classList.add('d-none');
-      ['loginSection', 'registerSection', 'forgotSection', 'portalSection'].forEach(s => document.getElementById(s).classList.add('d-none'));
+      ['loginSection', 'registerSection', 'forgotSection', 'portalSection'].forEach(s => {
+        document.getElementById(s).classList.add('d-none');
+      });
       document.getElementById(id).classList.remove('d-none');
     }
 
-    async function handleApi(action) {
+    async function handleApi(action, btnEl) {
       let payload = { action };
       if (action === 'login') {
         payload.username = document.getElementById('loginUsername').value.trim();
         payload.password = document.getElementById('loginPassword').value.trim();
-        
-        if(!payload.username || !payload.password) return showAlert("Sila isi nama pengguna & kata laluan", "danger");
+        if (!payload.username || !payload.password) return showAlert("Sila isi nama pengguna & kata laluan.", "danger");
       } else if (action === 'register') {
         payload.username = document.getElementById('regUsername').value.trim();
         payload.nama = document.getElementById('regNama').value.trim();
@@ -578,6 +911,12 @@
         payload.password = document.getElementById('regPassword').value.trim();
       } else if (action === 'retrieve') {
         payload.email = document.getElementById('forgotEmail').value.trim();
+      }
+
+      const originalHtml = btnEl ? btnEl.innerHTML : '';
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Memproses...';
       }
 
       try {
@@ -589,20 +928,25 @@
 
         const data = await res.json();
         if (data.success) {
-          showAlert(data.message, 'success');
           if (action === 'login') {
             localStorage.setItem('currentUser', JSON.stringify(data.user));
-            document.getElementById('userDisplayName').innerText = data.user.nama;
-            document.getElementById('userDisplayEmail').innerText = data.user.email;
+            setUserProfile(data.user);
             showSection('portalSection');
+            showAlert(data.message, 'success');
           } else {
             showSection('loginSection');
+            showAlert(data.message, 'success');
           }
         } else {
           showAlert(data.message, 'danger');
         }
       } catch (err) {
         showAlert('Ralat Rangkaian Pelayan: Sila pastikan pautan Apps Script tepat.', 'danger');
+      } finally {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerHTML = originalHtml;
+        }
       }
     }
 
